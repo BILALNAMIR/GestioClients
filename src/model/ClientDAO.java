@@ -5,8 +5,22 @@ import utils.DatabaseConnection;
 import java.sql.*;
 import java.util.*;
 
+/**
+ * Classe DAO (Data Access Object) per gestionar les operacions CRUD
+ * relacionades amb la taula {@code client} de la base de dades.
+ * <p>
+ * Proporciona funcionalitats per recuperar, inserir i eliminar clients.
+ * </p>
+ *
+ * <p>Autor: Bilal</p>
+ */
 public class ClientDAO {
 
+    /**
+     * Recupera tots els clients de la base de dades.
+     *
+     * @return Una llista amb tots els clients existents.
+     */
     public static List<Client> getAllClients() {
         List<Client> llista = new ArrayList<>();
         String sql = "SELECT * FROM client";
@@ -31,6 +45,11 @@ public class ClientDAO {
         return llista;
     }
 
+    /**
+     * Insereix un nou client a la base de dades.
+     *
+     * @param c L'objecte {@link Client} que es vol afegir.
+     */
     public static void insertClient(Client c) {
         String sql = "INSERT INTO client(nom, cognoms, email, telefon) VALUES (?, ?, ?, ?)";
 
@@ -46,6 +65,11 @@ public class ClientDAO {
         }
     }
 
+    /**
+     * Elimina un client de la base de dades mitjançant el seu ID.
+     *
+     * @param id L'identificador únic del client que es vol eliminar.
+     */
     public static void deleteClient(int id) {
         String sql = "DELETE FROM client WHERE id_client = ?";
 

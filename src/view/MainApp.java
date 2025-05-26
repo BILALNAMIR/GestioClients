@@ -10,8 +10,19 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import model.*;
 
+/**
+ * Classe principal de l'aplicació JavaFX per a la gestió de clients, serveis, reserves i logs.
+ * Aquesta aplicació està dividida en diverses pestanyes, cada una amb funcionalitat específica.
+ *
+ * <p>Desenvolupada per Bilal.</p>
+ */
 public class MainApp extends Application {
 
+    /**
+     * Mètode que inicialitza i mostra la interfície gràfica principal de l'aplicació.
+     *
+     * @param stage Escenari principal on es mostren totes les pestanyes i components.
+     */
     @Override
     public void start(Stage stage) {
         // ---------- Pestanya CLIENTS ----------
@@ -151,6 +162,11 @@ public class MainApp extends Application {
         stage.show();
     }
 
+    /**
+     * Punt d'entrada de l'aplicació JavaFX.
+     *
+     * @param args Arguments de línia de comandes (no s'utilitzen).
+     */
     public static void main(String[] args) {
         launch(args);
     }

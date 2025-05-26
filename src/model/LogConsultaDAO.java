@@ -6,7 +6,22 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe DAO (Data Access Object) per accedir a les dades de la taula
+ * {@code log_consultes} de la base de dades.
+ *
+ * <p>Permet recuperar tots els logs registrats, ordenats per data de consulta
+ * en ordre descendent.</p>
+ *
+ * <p>Autor: Bilal</p>
+ */
 public class LogConsultaDAO {
+
+    /**
+     * Recupera tots els logs de consultes registrats a la base de dades.
+     *
+     * @return Llista de {@link LogConsulta} amb totes les consultes registrades.
+     */
     public static List<LogConsulta> getAllLogs() {
         List<LogConsulta> llista = new ArrayList<>();
         String sql = "SELECT * FROM log_consultes ORDER BY data_consulta DESC";

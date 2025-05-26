@@ -4,6 +4,10 @@ import javafx.scene.control.*;
 import model.Client;
 import model.ClientDAO;
 
+/**
+ * Controlador per gestionar la interfície i operacions relacionades amb clients.
+ * Permet carregar, afegir, modificar i eliminar clients, així com gestionar els camps de text i mostrar errors.
+ */
 public class ClientController {
 
     private TableView<Client> taulaClients;
@@ -12,6 +16,15 @@ public class ClientController {
     private TextField emailField;
     private TextField telefonField;
 
+    /**
+     * Constructor que inicialitza el controlador amb els components gràfics.
+     * 
+     * @param taulaClients Taula on es mostren els clients.
+     * @param nomField Camp de text per al nom.
+     * @param cognomsField Camp de text per als cognoms.
+     * @param emailField Camp de text per a l'email.
+     * @param telefonField Camp de text per al telèfon.
+     */
     public ClientController(TableView<Client> taulaClients, TextField nomField, TextField cognomsField, TextField emailField, TextField telefonField) {
         this.taulaClients = taulaClients;
         this.nomField = nomField;
@@ -20,10 +33,17 @@ public class ClientController {
         this.telefonField = telefonField;
     }
 
+    /**
+     * Carrega tots els clients de la base de dades i els mostra a la taula.
+     */
     public void carregarClients() {
         taulaClients.getItems().setAll(ClientDAO.getAllClients());
     }
 
+    /**
+     * Afegeix un nou client amb les dades dels camps de text.
+     * Si algun camp està buit, mostra un missatge d'error.
+     */
     public void afegirClient() {
         String nom = nomField.getText();
         String cognoms = cognomsField.getText();
@@ -46,6 +66,10 @@ public class ClientController {
         }
     }
 
+    /**
+     * Elimina el client seleccionat a la taula.
+     * Si no hi ha cap client seleccionat, no fa res.
+     */
     public void eliminarClient() {
         Client seleccionat = taulaClients.getSelectionModel().getSelectedItem();
         if (seleccionat != null) {
@@ -55,6 +79,10 @@ public class ClientController {
         }
     }
 
+    /**
+     * Modifica el client seleccionat amb les dades dels camps de text.
+     * Si no hi ha cap client seleccionat o algun camp està buit, mostra un error.
+     */
     public void modificarClient() {
         Client seleccionat = taulaClients.getSelectionModel().getSelectedItem();
         if (seleccionat == null) {
@@ -75,8 +103,9 @@ public class ClientController {
         Client actualitzat = new Client(seleccionat.getId(), nom, cognoms, email, telefon);
 
         try {
-            ClientDAO.deleteClient(seleccionat.getId());  // Elimina antic
-            ClientDAO.insertClient(actualitzat);          // Insereix actualitzat
+            // No hi ha un mètode update, per això es fa delete + insert
+            ClientDAO.deleteClient(seleccionat.getId());
+            ClientDAO.insertClient(actualitzat);
             carregarClients();
             buidarCamps();
         } catch (Exception e) {
@@ -84,6 +113,9 @@ public class ClientController {
         }
     }
 
+    /**
+     * Neteja els camps de text.
+     */
     private void buidarCamps() {
         nomField.clear();
         cognomsField.clear();
@@ -91,6 +123,11 @@ public class ClientController {
         telefonField.clear();
     }
 
+    /**
+     * Mostra una alerta d'error amb el missatge indicat.
+     * 
+     * @param missatge Missatge d'error a mostrar.
+     */
     private void mostrarError(String missatge) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
